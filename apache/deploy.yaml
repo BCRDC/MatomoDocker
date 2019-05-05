@@ -39,7 +39,11 @@ spec:
   rules:
   - http:
       paths:
-      - path: /testpath
+      - path: /matomo
         backend:
           serviceName: azure-matomo-svc
           servicePort: 6379
+      - path: /front
+        backend:
+          serviceName: azure-vote-front
+          servicePort: 80
