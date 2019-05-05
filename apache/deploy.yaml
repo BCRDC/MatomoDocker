@@ -34,7 +34,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - *
+    - abus.example.cn
     secretName: tls-secret
   rules:
   - http:
