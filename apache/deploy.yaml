@@ -1,0 +1,45 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: abus-matomo-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: abus-matomo-dep
+    spec:
+      containers:
+      - name: abus-matomo-web
+        image: bcrdc.azurecr.cn/abusmatomo:test
+        ports:
+        - containerPort: 6379
+          name: abusmatomo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-matomo-svc
+spec:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: abus-matomo-dep
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: abus-entry
+spec:
+  tls:
+  - hosts:
+    - abus.example.cn
+    secretName: tls-secret
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        backend:
+          serviceName: azure-matomo-svc
+          servicePort: 6379
