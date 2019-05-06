@@ -3,3 +3,9 @@
 3. helm init --tiller-image gcr.azk8s.cn/kubernetes-helm/tiller:v2.13.0 --stable-repo-url https://mirror.azure.cn/kubernetes/charts/ --service-account tiller
 4. helm install stable/wordpress
 5. helm list
+
+
+
+helm install stable/nginx-ingress --namespace ingress-basic --name abus-point --set controller.replicaCount=2  --set controller.ingressClass=nginx2
+
+kubectl get service -l app=nginx-ingress --namespace ingress-basic

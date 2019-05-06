@@ -27,23 +27,32 @@ spec:
   selector:
     app: abus-matomo-dep
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-vote-front
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: azure-vote-front
+---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: abus-entry
+  annotations:
+    kubernetes.io/ingress.class: "nginx2"
 spec:
   tls:
-  - hosts:
-    - abus.example.cn
-    secretName: tls-secret
+  - secretName: tls-secret
   rules:
   - http:
       paths:
-      - path: /matomo
-        backend:
-          serviceName: azure-matomo-svc
-          servicePort: 6379
-      - path: /front
+      - path: /
         backend:
           serviceName: azure-vote-front
           servicePort: 80
+---
+
