@@ -1,0 +1,5 @@
+1. choco install kubernetes-helm
+2. kubectl apply -f helm-rbac.yaml
+3. helm init --tiller-image gcr.azk8s.cn/kubernetes-helm/tiller:v2.13.0 --stable-repo-url https://mirror.azure.cn/kubernetes/charts/ --service-account tiller
+4. helm install stable/wordpress
+5. helm list
