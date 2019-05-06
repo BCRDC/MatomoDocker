@@ -1,0 +1,8 @@
+version: '3'
+services:
+  matomo:
+    build: .
+    image: "abusmatomo:fpm-alpine"
+    container_name: matomofpm
+    ports:
+        - "6379:6379"
