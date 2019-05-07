@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: matomo
-  tag: 3.5.1-fpm-alpine
+  repository: bcrdc.azurecr.cn/abusmatomo
+  tag: fpm-alpine
   pullPolicy: IfNotPresent
 
 service:
@@ -15,14 +15,14 @@ service:
 
 ingress:
   enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
+  annotations:
+    kubernetes.io/ingress.class: "nginx2"
     # kubernetes.io/tls-acme: "true"
   path: /
-  hosts:
-    - analytics.yourdomain.com
-  tls: []
-  #  - secretName: chart-example-tls
+  hosts: []
+  #  - analytics.yourdomain.com
+  tls:
+  - secretName: tls-secret
   #    hosts:
   #      - chart-example.local
 
@@ -46,6 +46,6 @@ affinity: {}
 
 matomoNginx:
   image:
-    repository: nginx
-    tag: alpine
+    repository: alpine
+    tag: 3.6
     pullPolicy: IfNotPresent
